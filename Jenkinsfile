@@ -20,9 +20,9 @@ node {
     stage('Deploy') {
         docker.image(imageDocker).inside {
             sh './jenkins/scripts/deliver.sh'
-            timeout(time: 1, unit: 'MINUTES') {
-                input message: 'Sudah selesai menggunakan React App? (klik "Proceed" untuk mengakhiri)'
-            }
+            echo 'Aplikasi akan berjalan selama 1 menit sebelum otomatis diakhiri'
+            sleep(time: 1, unit: 'MINUTES')
+            echo 'Waktu telah habis, aplikasi akan diakhiri'
             sh './jenkins/scripts/kill.sh'
         }
     }
